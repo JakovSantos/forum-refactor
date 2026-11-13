@@ -1,0 +1,37 @@
+{{> partials/header}}
+<article class="discussion">
+    <h1>{{discussion.title}}</h1>
+    <p class="meta">Started by <strong>{{discussion.author}}</strong> on <time datetime="{{discussion.created_iso}}">{{discussion.created_at}}</time></p>
+    <div class="discussion-body">{{discussion.body}}</div>
+</article>
+
+<section class="replies" aria-labelledby="replies-heading">
+    <h2 id="replies-heading">Replies ({{comment_count}})</h2>
+
+    {{#hidden_count}}
+    <p class="notice error" role="status">{{.}} comment(s) could not be shown because they are not connected to this discussion.</p>
+    {{/hidden_count}}
+
+    {{#comments}}
+    {{> partials/comment}}
+    {{/comments}}
+    {{^comments}}
+    <p>No comments yet.</p>
+    {{/comments}}
+</section>
+
+<section class="new-comment" aria-labelledby="new-comment-heading">
+    <h2 id="new-comment-heading">Add a top-level comment</h2>
+    {{#can_post}}
+    <form method="post" action="{{new_comment_action}}">
+        <input type="hidden" name="_token" value="{{csrf_token}}">
+        <label for="new-comment-body">Your comment</label>
+        <textarea id="new-comment-body" name="body" rows="4" maxlength="{{max_length}}" required></textarea>
+        <button type="submit">Post comment</button>
+    </form>
+    {{/can_post}}
+    {{^can_post}}
+    <p>Anyone can read this discussion, but you need an account to post. <a href="{{base}}/login">Log in</a> or <a href="{{base}}/register">register</a>.</p>
+    {{/can_post}}
+</section>
+{{> partials/footer}}

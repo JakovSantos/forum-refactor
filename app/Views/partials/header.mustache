@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{page_title}} | {{app_name}}</title>
+    <link rel="stylesheet" href="{{base}}/assets/style.css">
+    {{#page_script}}
+    <script src="{{base}}/assets/{{.}}" defer></script>
+    {{/page_script}}
+</head>
+<body>
+<header class="site-header">
+    <a class="brand" href="{{base}}/">{{app_name}}</a>
+    <nav class="account-nav" aria-label="Account">
+        {{#current_user}}
+        <span class="who">Logged in as <strong>{{username}}</strong></span>
+        <form class="inline-form" method="post" action="{{base}}/logout">
+            <input type="hidden" name="_token" value="{{csrf_token}}">
+            <button type="submit">Log out</button>
+        </form>
+        {{/current_user}}
+        {{^current_user}}
+        <a href="{{base}}/login">Log in</a>
+        <a href="{{base}}/register">Register</a>
+        {{/current_user}}
+    </nav>
+</header>
+<main>
+{{#flash_success}}
+    <p class="notice success" role="status">{{.}}</p>
+{{/flash_success}}
+{{#flash_error}}
+    <p class="notice error" role="alert">{{.}}</p>
+{{/flash_error}}

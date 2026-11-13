@@ -1,0 +1,37 @@
+<article class="comment {{indent_class}}" id="comment-{{id}}">
+    <header class="comment-head">
+        <img class="avatar" src="{{base}}/assets/default-avatar.svg" alt="" width="32" height="32">
+        <span class="author">{{author}}</span>
+        <span class="depth-label">Depth {{depth}}</span>
+        <time datetime="{{created_iso}}">{{created_at}}</time>
+    </header>
+    {{#reply_to}}
+    <p class="reply-to">Replying to {{.}}</p>
+    {{/reply_to}}
+    <div class="comment-body">{{body}}</div>
+    {{#has_children}}
+    <div class="toggle-row">
+        <button type="button" class="toggle-replies" aria-controls="replies-{{id}}" aria-expanded="true" hidden>
+            <span class="arrow" aria-hidden="true"></span><span class="toggle-label">Hide replies</span>
+        </button>
+    </div>
+    {{/has_children}}
+    {{#can_post}}
+    <details class="reply-box">
+        <summary>Reply</summary>
+        <form method="post" action="{{reply_action}}">
+            <input type="hidden" name="_token" value="{{csrf_token}}">
+            <label for="reply-body-{{id}}">Your reply to {{author}}</label>
+            <textarea id="reply-body-{{id}}" name="body" rows="3" maxlength="{{max_length}}" required></textarea>
+            <button type="submit">Post reply</button>
+        </form>
+    </details>
+    {{/can_post}}
+</article>
+{{#has_children}}
+<div class="reply-branch" id="replies-{{id}}" role="group" aria-label="Replies to {{author}}">
+    {{#children}}
+    {{> partials/comment}}
+    {{/children}}
+</div>
+{{/has_children}}

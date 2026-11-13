@@ -1,0 +1,163 @@
+/* Plain stylesheet for the nested forum lab. No framework. */
+
+:root {
+    --text: #1f2933;
+    --muted: #52606d;
+    --line: #cbd2d9;
+    --bg: #ffffff;
+    --soft: #f5f7fa;
+    --accent: #1d4e89;
+    --ok: #1b6b3a;
+    --bad: #a12626;
+    --indent-step: 1.5rem;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--bg);
+}
+
+main, .site-header, .site-footer {
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+main { padding-bottom: 2rem; }
+
+a { color: var(--accent); }
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 1rem;
+}
+
+.brand { font-weight: 700; text-decoration: none; color: var(--text); }
+.account-nav { display: flex; gap: 0.75rem; align-items: center; }
+.inline-form { display: inline; margin: 0; }
+
+h1 { font-size: 1.6rem; margin: 1rem 0 0.25rem; }
+h2 { font-size: 1.2rem; margin: 1.5rem 0 0.5rem; }
+
+.meta { color: var(--muted); font-size: 0.9rem; margin: 0; }
+.discussion-body, .comment-body { white-space: pre-wrap; overflow-wrap: anywhere; }
+.discussion-body { margin: 0.75rem 0; }
+
+.discussion-list { padding-left: 1.25rem; }
+.discussion-list li { margin-bottom: 0.5rem; }
+.discussion-list .meta { display: block; }
+
+/* Comments: indentation comes from the indent-N class, capped at indent-8 */
+.comment {
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+    background: var(--soft);
+    padding: 0.5rem 0.75rem;
+    margin: 0.5rem 0;
+}
+
+.indent-0 { margin-left: 0; }
+.indent-1 { margin-left: calc(1 * var(--indent-step)); }
+.indent-2 { margin-left: calc(2 * var(--indent-step)); }
+.indent-3 { margin-left: calc(3 * var(--indent-step)); }
+.indent-4 { margin-left: calc(4 * var(--indent-step)); }
+.indent-5 { margin-left: calc(5 * var(--indent-step)); }
+.indent-6 { margin-left: calc(6 * var(--indent-step)); }
+.indent-7 { margin-left: calc(7 * var(--indent-step)); }
+.indent-8 { margin-left: calc(8 * var(--indent-step)); }
+
+@media (max-width: 40rem) {
+    :root { --indent-step: 0.6rem; }
+}
+
+.comment-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.avatar { border-radius: 50%; background: #e4e7eb; }
+.author { font-weight: 600; }
+.depth-label {
+    border: 1px solid var(--line);
+    background: var(--bg);
+    border-radius: 3px;
+    padding: 0 0.4rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+time { color: var(--muted); }
+.reply-to { margin: 0.25rem 0 0; font-size: 0.85rem; color: var(--muted); }
+.comment-body { margin: 0.4rem 0; }
+
+.reply-box summary { cursor: pointer; color: var(--accent); font-size: 0.9rem; }
+
+/* Collapse and expand button. It is drawn hidden by the server and shown by collapse.js. */
+[hidden] { display: none !important; }
+
+.toggle-row { margin: 0.25rem 0; }
+.toggle-replies {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: 0.1rem 0.4rem 0.1rem 0;
+    border: 0;
+    background: none;
+    color: var(--accent);
+    font-size: 0.9rem;
+}
+.toggle-replies:hover .toggle-label { text-decoration: underline; }
+.toggle-replies:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.toggle-replies .arrow {
+    width: 0;
+    height: 0;
+    margin-right: 0.45rem;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid currentColor;
+}
+.toggle-replies[aria-expanded="false"] .arrow { transform: rotate(-90deg); }
+
+form label { display: block; font-weight: 600; margin: 0.6rem 0 0.2rem; }
+textarea, input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    font: inherit;
+    padding: 0.4rem 0.5rem;
+    border: 1px solid #9aa5b1;
+    border-radius: 4px;
+}
+button {
+    font: inherit;
+    margin-top: 0.6rem;
+    padding: 0.35rem 0.9rem;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.inline-form button { margin-top: 0; background: var(--bg); color: var(--accent); }
+
+.auth-form { max-width: 24rem; }
+
+.notice { border-radius: 4px; padding: 0.5rem 0.75rem; margin: 0.75rem 0; border: 1px solid; }
+.notice p { margin: 0 0 0.25rem; }
+.notice ul { margin: 0; padding-left: 1.25rem; }
+.notice.success { color: var(--ok); border-color: var(--ok); background: #edf7f0; }
+.notice.error { color: var(--bad); border-color: var(--bad); background: #fbeeee; }
+
+.site-footer { color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--line); padding-top: 0.5rem; padding-bottom: 1rem; }

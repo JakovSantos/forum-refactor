@@ -1,0 +1,27 @@
+{
+    "name": "student/forum-refactor",
+    "description": "Nested forum replies lab: PHP, MySQL and PDO refactored into a router, controllers, models and Mustache views.",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.2",
+        "ext-mbstring": "*",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "bramus/router": "^1.6",
+        "illuminate/database": "^11.0",
+        "mustache/mustache": "^2.14"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "php tests/run.php"
+    }
+}

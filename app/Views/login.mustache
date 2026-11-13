@@ -1,0 +1,20 @@
+{{> partials/header}}
+<h1>Log in</h1>
+
+{{#error}}
+<p class="notice error" role="alert">{{.}}</p>
+{{/error}}
+
+<form class="auth-form" method="post" action="{{base}}/login">
+    <input type="hidden" name="_token" value="{{csrf_token}}">
+
+    <label for="login">Username or email</label>
+    <input id="login" name="login" type="text" value="{{old.login}}" maxlength="254" autocomplete="username" required>
+
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+    <button type="submit">Log in</button>
+</form>
+<p>New here? <a href="{{base}}/register">Create an account</a>.</p>
+{{> partials/footer}}

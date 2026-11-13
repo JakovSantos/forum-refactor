@@ -1,0 +1,14 @@
+{{> partials/header}}
+<h1>Discussions</h1>
+<ul class="discussion-list">
+    {{#discussions}}
+    <li>
+        <a href="{{base}}/discussions/{{id}}">{{title}}</a>
+        <span class="meta">by {{author}}, {{comment_count}} comments, {{created_at}}</span>
+    </li>
+    {{/discussions}}
+</ul>
+{{^discussions}}
+<p>There are no discussions yet.</p>
+{{/discussions}}
+{{> partials/footer}}
